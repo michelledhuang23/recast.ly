@@ -16,9 +16,12 @@ class App extends React.Component {
   }
 
   onSearch(searchTerms) {
-    console.log('searched!');
+    console.log(searchTerms);
     // return (<searchYouTube options={{key: YOUTUBE_API_KEY, query: searchTerms, max: 10}} />);
-    return searchYouTube({key: YOUTUBE_API_KEY, query: searchTerms, max: 10});
+    return searchYouTube({key: YOUTUBE_API_KEY, query: searchTerms, max: 5}, (data) => {
+      console.log(data);
+      return this.setState({currentVideo: data[0], videos: data});
+    });
   }
 
   render() {
@@ -41,7 +44,7 @@ class App extends React.Component {
 }
 
 
-ReactDOM.render(<App />, document.getElementById("app"));
+ReactDOM.render(<App/>, document.getElementById("app"));
 // In the ES6 spec, files are "modules" and do not share a top-level scope
 // `var` declarations will only exist globally where explicitly defined
 export default App;

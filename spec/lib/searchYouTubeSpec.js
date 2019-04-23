@@ -77,6 +77,8 @@ describe('searchYouTube', function() {
       max: 5
     };
 
+
+
     // We want this test to make a real AJAX request
     xhr.restore();
 
