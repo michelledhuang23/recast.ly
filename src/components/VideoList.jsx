@@ -1,5 +1,3 @@
-import {exampleVideoData} from 'src/components/exampleVideoData.jsx';
-
 var VideoList = (props) => (
   <div className="video-list">
     <div><h5><em>videoListEntry</em>{props.videos[0]}</h5></div>

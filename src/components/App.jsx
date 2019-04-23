@@ -1,5 +1,5 @@
-import {exampleVideoData} from 'src/components/exampleVideoData.jsx';
-import {VideoList} from 'src/components/VideoList.jsx';
+import {exampleVideoData} from '../data/exampleVideoData.js';
+import {VideoList} from './VideoList.jsx';
 var App = () => (
   <div>
     <nav className="navbar">
@@ -13,6 +13,7 @@ var App = () => (
       </div>
       <div className="col-md-5">
         <div><h5><em>videoList</em><VideoList videos={exampleVideoData}/></h5></div>
+        <div>hello</div>
       </div>
     </div>
   </div>
