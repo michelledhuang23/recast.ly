@@ -2,24 +2,21 @@ import exampleVideoData from '../data/exampleVideoData.js';
 import VideoList from './VideoList.js';
 import VideoPlayer from './VideoPlayer.js';
 import Search from './Search.js';
-import searchYouTube from '../lib/searchYouTube.js';
 import YOUTUBE_API_KEY from '../config/youtube.js';
 
 class App extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {currentVideo: exampleVideoData[0], videos: exampleVideoData};
+    this.onSearch();
   }
 
   onClick(videoIndex) {
-    return this.setState({currentVideo: exampleVideoData[videoIndex]});
+    return this.setState({currentVideo: this.state.videos[videoIndex]});
   }
 
   onSearch(searchTerms) {
-    console.log(searchTerms);
-    // return (<searchYouTube options={{key: YOUTUBE_API_KEY, query: searchTerms, max: 10}} />);
-    return searchYouTube({key: YOUTUBE_API_KEY, query: searchTerms, max: 5}, (data) => {
-      console.log(data);
+    return this.props.searchYouTube({key: YOUTUBE_API_KEY, query: searchTerms, max: 5}, (data) => {
       return this.setState({currentVideo: data[0], videos: data});
     });
   }
@@ -43,8 +40,6 @@ class App extends React.Component {
   }
 }
 
-
-ReactDOM.render(<App/>, document.getElementById("app"));
 // In the ES6 spec, files are "modules" and do not share a top-level scope
 // `var` declarations will only exist globally where explicitly defined
 export default App;
