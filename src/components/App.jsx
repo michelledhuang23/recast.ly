@@ -8,16 +8,19 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {currentVideo: exampleVideoData[0], videos: exampleVideoData};
+  }
+
+  componentDidMount() {
     this.onSearch();
   }
 
   onClick(videoIndex) {
-    return this.setState({currentVideo: this.state.videos[videoIndex]});
+    this.setState({currentVideo: this.state.videos[videoIndex]});
   }
 
   onSearch(searchTerms) {
-    return this.props.searchYouTube({key: YOUTUBE_API_KEY, query: searchTerms, max: 5}, (data) => {
-      return this.setState({currentVideo: data[0], videos: data});
+    this.props.searchYouTube({key: YOUTUBE_API_KEY, query: searchTerms, max: 5}, (data) => {
+      this.setState({currentVideo: data[0], videos: data});
     });
   }
 
@@ -30,10 +33,10 @@ class App extends React.Component {
       </nav>
       <div className="row">
         <div className="col-md-7">
-          <VideoPlayer video={this.state.currentVideo}/>
+          {this.state.currentVideo != null ? <VideoPlayer video={this.state.currentVideo}/> : null}
         </div>
         <div className="col-md-5">
-          <VideoList videos={this.state.videos} onClick={this.onClick.bind(this)}/>
+          {this.state.videos.length > 0 && <VideoList videos={this.state.videos} onClick={this.onClick.bind(this)}/>}
         </div>
       </div>
     </div>);
